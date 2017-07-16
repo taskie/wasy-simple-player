@@ -1,0 +1,31 @@
+{
+  "name": "wasy-simple-player",
+  "description": "",
+  "version": "0.0.1",
+  "main": "index.js",
+  "devDependencies": {
+    "glob": "^7.1.2",
+    "wasy": "../wasy"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taskie/wasy-simple-player.git"
+  },
+  "author": "taskie <t@skie.jp> (http://www.alprosys.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/taskie/wasy-simple-player/issues"
+  },
+  "homepage": "https://github.com/taskie/wasy-simple-player#readme",
+  "private": true,
+  "dependencies": {
+    "ejs": "^2.5.6",
+    "stylus": "^0.54.5",
+    "ts-loader": "^2.3.0",
+    "typescript": "^2.4.1",
+    "webpack": "^3.3.0"
+  }
+}

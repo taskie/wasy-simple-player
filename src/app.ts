@@ -1,6 +1,6 @@
-import * as wasy from "./wasy";
-import * as midiIn from "./midi-in";
-import * as midi from "./lib/midi";
+import * as wasy from "wasy/dist/wasy";
+import * as midi from "wasy/dist/midi/event";
+import * as midiIn from "wasy/dist/webmidi/midi-in";
 
 class KeyboardView {
 	static blackKey = "010100101010";
@@ -66,7 +66,7 @@ class AnalyserView {
 		this.canvasContext.fillStyle = "#002b36";
 		this.canvasContext.fillRect(0, 240, 640, 240);
 		if (this.analyser == null) return;
-		
+
 		// freq
 		this.analyser.getByteFrequencyData(this.array);
 		this.canvasContext.beginPath();
@@ -83,7 +83,7 @@ class AnalyserView {
 		this.canvasContext.closePath();
 		this.canvasContext.fillStyle = "#073642";
 		this.canvasContext.fill();
-		
+
 		// wave
 		this.analyser.getByteTimeDomainData(this.array);
 		this.canvasContext.beginPath();
@@ -130,7 +130,7 @@ class Application {
 		let canvas = <HTMLCanvasElement> document.querySelector("canvas#keyboardCanvas");
 		canvas.ondragover = e => e.preventDefault();
 		canvas.addEventListener("drop", this.canvasDropListener.bind(this));
-		
+
 		this.canvasContext = <CanvasRenderingContext2D> canvas.getContext("2d");
 		this.keyboardView = new KeyboardView(this.canvasContext);
 		this.analyserView = new AnalyserView(this.canvasContext);
@@ -158,21 +158,25 @@ class Application {
 			this.songDirectory = "./midi/";
 		}
 		let jsonPath = this.songDirectory + "songs.json";
-		let xhr = new XMLHttpRequest();
-		xhr.open("GET", jsonPath, true);
-		xhr.onload = (e) => {
-			let json = xhr.responseText;
-			this.songs = JSON.parse(json);
-			for (let song of this.songs) {
-				let option = document.createElement("option");
-				let value = `${song.name} （${song.artist}）`;
-				if (song.artist == null) value = song.name;
-				option.innerHTML = value;
-				fileSelector.appendChild(option);
+		try {
+			let xhr = new XMLHttpRequest();
+			xhr.open("GET", jsonPath, true);
+			xhr.onload = (e) => {
+				let json = xhr.responseText;
+				this.songs = JSON.parse(json);
+				for (let song of this.songs) {
+					let option = document.createElement("option");
+					let value = `${song.name} （${song.artist}）`;
+					if (song.artist == null) value = song.name;
+					option.innerHTML = value;
+					fileSelector.appendChild(option);
+				}
 			}
+			xhr.send();
+			this.playWithBuffer();
+		} catch (e) {
+			console.error("XHR Error");
 		}
-		xhr.send();
-		this.playWithBuffer();
 	}
 
 	fileChangeListener(e: Event) {
@@ -184,7 +188,7 @@ class Application {
 	canvasDropListener(e: Event) {
 		let files: FileList = (<any>e).dataTransfer.files;
 		let fileButton = <HTMLInputElement> document.querySelector("input#fileButton");
-		fileButton.files = files;
+		(<any>fileButton).files = files;
 		let file = files[0];
 		this.setUserFile(file);
 		return e.preventDefault();
@@ -229,7 +233,7 @@ class Application {
 			xhr.send();
 		}
 	}
-	
+
 	pauseListener(e: Event) {
 		let button = <HTMLInputElement> e.target;
 		if (this.wasy.paused) {
@@ -240,7 +244,7 @@ class Application {
 			button.value = "resume";
 		}
 	}
-	
+
 	midiEventListener(e: midi.Event) {
 		this.wasy.receiveExternalMidiEvent(e);
 	}
@@ -254,7 +258,7 @@ class Application {
 			clearInterval(this.timerId);
 			this.timerId = null;
 		}
-		
+
 		if (this.analyser) this.analyser.disconnect();
 		this.analyser = this.audioContext.createAnalyser();
 		this.analyser.connect(this.audioContext.destination);
