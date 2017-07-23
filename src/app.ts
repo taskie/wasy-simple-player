@@ -1,6 +1,4 @@
-import * as wasy from "wasy/dist/wasy";
-import * as midi from "wasy/dist/midi/event";
-import * as midiIn from "wasy/dist/webmidi/midi-in";
+import { wasy, midi, midiIn } from "wasy";
 
 class KeyboardView {
 	static blackKey = "010100101010";

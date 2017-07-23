@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -258,13 +258,14 @@ exports.dataViewGetString = dataViewGetString;
 /* 8 */,
 /* 9 */,
 /* 10 */,
-/* 11 */
+/* 11 */,
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const player = __webpack_require__(12);
+const player = __webpack_require__(13);
 class PlayerWorker {
     messageListener(event) {
         switch (event.data.type) {
@@ -287,14 +288,14 @@ self.addEventListener("message", playerWorker.messageListener.bind(playerWorker)
 //# sourceMappingURL=player-worker.js.map
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const midi = __webpack_require__(0);
-const smf = __webpack_require__(13);
+const smf = __webpack_require__(14);
 class Player {
     constructor(buffer) {
         this.song = new smf.Song(buffer);
@@ -333,13 +334,13 @@ exports.Player = Player;
 //# sourceMappingURL=player.js.map
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const xiff = __webpack_require__(14);
+const xiff = __webpack_require__(15);
 const dvu = __webpack_require__(1);
 const midi = __webpack_require__(0);
 class Header {
@@ -451,7 +452,7 @@ exports.Song = Song;
 //# sourceMappingURL=smf.js.map
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

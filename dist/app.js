@@ -287,9 +287,7 @@ exports.default = Signal;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const wasy = __webpack_require__(4);
-const midi = __webpack_require__(0);
-const midiIn = __webpack_require__(10);
+const wasy_1 = __webpack_require__(4);
 class KeyboardView {
     constructor(canvasContext) {
         this.canvasContext = canvasContext;
@@ -304,11 +302,11 @@ class KeyboardView {
     }
     timedEventListener(e) {
         let me = e.midiEvent;
-        if (me instanceof midi.ChannelEvent) {
-            if (me instanceof midi.NoteOnEvent) {
+        if (me instanceof wasy_1.midi.ChannelEvent) {
+            if (me instanceof wasy_1.midi.NoteOnEvent) {
                 this.keyboardMap[me.channel][me.noteNumber] = true;
             }
-            else if (me instanceof midi.NoteOffEvent) {
+            else if (me instanceof wasy_1.midi.NoteOffEvent) {
                 this.keyboardMap[me.channel][me.noteNumber] = false;
             }
         }
@@ -401,8 +399,8 @@ class Application {
         this.keyboardView = new KeyboardView(this.canvasContext);
         this.analyserView = new AnalyserView(this.canvasContext);
         this.midiIns = [];
-        this.midiIns.push(new midiIn.WebMIDIIn());
-        this.midiIns.push(new midiIn.WebMidiLinkIn());
+        this.midiIns.push(new wasy_1.midiIn.WebMIDIIn());
+        this.midiIns.push(new wasy_1.midiIn.WebMidiLinkIn());
         for (const midiIn of this.midiIns) {
             midiIn.on((e) => this.midiEventListener(e));
         }
@@ -524,7 +522,7 @@ class Application {
         this.analyser.connect(this.audioContext.destination);
         this.analyserView.analyser = this.analyser;
         this.analyser.smoothingTimeConstant = 0;
-        this.wasy = new wasy.Wasy(this.audioContext, this.analyser, buffer);
+        this.wasy = new wasy_1.wasy.Wasy(this.audioContext, this.analyser, buffer);
         this.wasy.play();
         this.wasy.onTimedEvent(this.keyboardView.timedEventListener.bind(this.keyboardView));
         this.timerId = setInterval(() => {
@@ -555,11 +553,26 @@ app.start();
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+const wasy = __webpack_require__(5);
+exports.wasy = wasy;
+const midiIn = __webpack_require__(11);
+exports.midiIn = midiIn;
 const midi = __webpack_require__(0);
-const timer = __webpack_require__(5);
+exports.midi = midi;
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const midi = __webpack_require__(0);
+const timer = __webpack_require__(6);
 const signal_1 = __webpack_require__(2);
-const inst = __webpack_require__(6);
-const synth_1 = __webpack_require__(7);
+const inst = __webpack_require__(7);
+const synth_1 = __webpack_require__(8);
 class Wasy {
     constructor(audioContext, destination, buffer) {
         this.audioContext = audioContext;
@@ -678,7 +691,7 @@ exports.Wasy = Wasy;
 //# sourceMappingURL=wasy.js.map
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -748,7 +761,7 @@ exports.Timer = Timer;
 //# sourceMappingURL=timer.js.map
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -961,13 +974,13 @@ exports.Instrument = Instrument;
 //# sourceMappingURL=instrument.js.map
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const patch_1 = __webpack_require__(8);
+const patch_1 = __webpack_require__(9);
 class SimpleOscillatorMonophony extends patch_1.Monophony {
 }
 exports.SimpleOscillatorMonophony = SimpleOscillatorMonophony;
@@ -1265,14 +1278,14 @@ exports.PatchGenerator = PatchGenerator;
 //# sourceMappingURL=synth.js.map
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const midi = __webpack_require__(0);
-const tuning = __webpack_require__(9);
+const tuning = __webpack_require__(10);
 class Monophony {
 }
 exports.Monophony = Monophony;
@@ -1336,7 +1349,7 @@ exports.Patch = Patch;
 //# sourceMappingURL=patch.js.map
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1362,7 +1375,7 @@ exports.EqualTemperamentTuning = EqualTemperamentTuning;
 //# sourceMappingURL=tuning.js.map
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
