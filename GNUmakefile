@@ -19,7 +19,8 @@ clean:
 clobber: clean
 	-rm -rf dist/
 
-distribute:
+distribute: reload-and-build
+	-rm -rf dist/
 	cp -pr build dist
 	-rm -f dist/vars.mk
 

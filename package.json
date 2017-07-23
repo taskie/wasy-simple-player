@@ -4,8 +4,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "devDependencies": {
-    "glob": "^7.1.2",
-    "wasy": "../wasy"
+    "glob": "^7.1.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -26,6 +25,7 @@
     "stylus": "^0.54.5",
     "ts-loader": "^2.3.0",
     "typescript": "^2.4.1",
-    "webpack": "^3.3.0"
+    "webpack": "^3.3.0",
+    "wasy": "git+https://github.com/taskie/wasy.git"
   }
 }

@@ -1842,8 +1842,9 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
-wasy@../wasy:
+"wasy@git+https://github.com/taskie/wasy.git":
   version "0.0.0"
+  resolved "git+https://github.com/taskie/wasy.git#4549344d86e7f88dbab0ee2f3f674c5c34c89492"
 
 watchpack@^1.4.0:
   version "1.4.0"
